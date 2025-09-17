@@ -134,4 +134,30 @@ export class TicketsService {
       throw new BadRequestException('Failed to update ticket')
     }
   }
+
+  async remove(id: number): Promise<Ticket> {
+    try {
+      // ตรวจสอบว่า ticket มีอยู่จริงก่อนลบ
+      const existingTicket = await this.prisma.ticket.findUnique({
+        where: { id },
+      })
+
+      if (!existingTicket) {
+        throw new BadRequestException(`Ticket with ID ${id} not found`)
+      }
+
+      // ลบ ticket
+      const deletedTicket = await this.prisma.ticket.delete({
+        where: { id },
+      })
+
+      return deletedTicket
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error
+      }
+      console.error(error)
+      throw new BadRequestException('Failed to delete ticket')
+    }
+  }
 }
