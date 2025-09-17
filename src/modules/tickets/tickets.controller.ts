@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Query } from '@nestjs/common'
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Query,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common'
 import { TicketsService } from './tickets.service'
 import { CreateTicketDto } from './dto/create-ticket.dto'
 import { FilterTicketsDto } from './dto/filter-ticket.dto'
@@ -15,5 +23,10 @@ export class TicketsController {
   @Get()
   findAll(@Query() query: FilterTicketsDto) {
     return this.ticketsService.findAll(query)
+  }
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.ticketsService.findOne(id)
   }
 }

@@ -88,4 +88,24 @@ export class TicketsService {
       throw new BadRequestException('Failed to fetch tickets')
     }
   }
+
+  async findOne(id: number): Promise<Ticket> {
+    try {
+      const ticket = await this.prisma.ticket.findUnique({
+        where: { id },
+      })
+
+      if (!ticket) {
+        throw new BadRequestException(`Ticket with ID ${id} not found`)
+      }
+
+      return ticket
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error
+      }
+      console.error(error)
+      throw new BadRequestException('Failed to fetch ticket')
+    }
+  }
 }
