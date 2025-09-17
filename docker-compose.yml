@@ -1,0 +1,48 @@
+name: nest-ticket-api
+services:
+  # NestJS Application
+  app:
+    container_name: ticket-api
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE:-Dockerfile}
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - postgres
+    volumes:
+      - ${VOLUME_MOUNT:-./prisma:/app/prisma}
+    networks:
+      - ticket-network
+
+  # PostgreSQL Database
+  postgres:
+    container_name: ticket-db-postgres
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '${DB_PORT:-5432}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - ticket-network
+
+volumes:
+  postgres_data:
+
+networks:
+  ticket-network:
+    driver: bridge

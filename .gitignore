@@ -40,7 +40,16 @@ lerna-debug.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
 .env.local
+
+# Database
+prisma/migrations/migration_lock.toml
+*.db
+*.sqlite
+
+# Docker
+docker-compose.override.yml
 
 # temp directory
 .temp
