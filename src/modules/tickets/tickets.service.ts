@@ -1,6 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common'
 import { PrismaService } from '../../common/prisma.service'
 import { CreateTicketDto } from './dto/create-ticket.dto'
+import { UpdateTicketDto } from './dto/update-ticket.dto'
 import { FilterTicketsDto } from './dto/filter-ticket.dto'
 import { Prisma, Ticket } from '@prisma/client'
 import { DefaultPerPageResponseModel } from 'src/common/models/response.model'
@@ -106,6 +107,31 @@ export class TicketsService {
       }
       console.error(error)
       throw new BadRequestException('Failed to fetch ticket')
+    }
+  }
+
+  async update(id: number, updateTicketDto: UpdateTicketDto): Promise<Ticket> {
+    try {
+      const existingTicket = await this.prisma.ticket.findUnique({
+        where: { id },
+      })
+
+      if (!existingTicket) {
+        throw new BadRequestException(`Ticket with ID ${id} not found`)
+      }
+
+      const updatedTicket = await this.prisma.ticket.update({
+        where: { id },
+        data: updateTicketDto,
+      })
+
+      return updatedTicket
+    } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error
+      }
+      console.error(error)
+      throw new BadRequestException('Failed to update ticket')
     }
   }
 }
