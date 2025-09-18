@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { InjectQueue } from '@nestjs/bullmq'
 import { Queue } from 'bullmq'
-import { QUEUE_NAMES, JOB_NAMES, JOB_OPTIONS } from './queue.constants'
-import { TicketNotifyJobData, TicketSlaJobData } from './queue.interfaces'
-import { TicketPriority } from '../ticket.enums'
+import { QUEUE_NAMES, JOB_NAMES, JOB_OPTIONS } from '../queue.constants'
+import { TicketNotifyJobData, TicketSlaJobData } from '../queue.models'
+import { TicketPriority } from '../../tickets/ticket.enums'
 
 @Injectable()
 export class TicketQueueService {

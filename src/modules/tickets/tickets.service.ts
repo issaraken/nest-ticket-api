@@ -5,7 +5,7 @@ import { UpdateTicketDto } from './dto/update-ticket.dto'
 import { FilterTicketsDto } from './dto/filter-ticket.dto'
 import { Prisma, Ticket } from '@prisma/client'
 import { DefaultPerPageResponseModel } from 'src/common/models/response.model'
-import { TicketQueueService } from './queue/ticket-queue.service'
+import { TicketQueueService } from '../queue/services/ticket-queue.service'
 import { TicketStatus, TicketPriority } from './ticket.enums'
 
 @Injectable()

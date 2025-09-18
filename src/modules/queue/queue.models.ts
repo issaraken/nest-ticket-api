@@ -11,3 +11,12 @@ export interface TicketSlaJobData {
   priority: string
   slaMinutes: number
 }
+
+export interface QueueStats {
+  waiting: number
+  active: number
+  completed: number
+  failed: number
+  delayed: number
+  total: number
+}

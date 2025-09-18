@@ -1,8 +1,8 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq'
 import { Logger } from '@nestjs/common'
 import { Job } from 'bullmq'
-import { QUEUE_NAMES, JOB_NAMES } from './queue.constants'
-import { TicketSlaJobData } from './queue.interfaces'
+import { QUEUE_NAMES, JOB_NAMES } from '../queue.constants'
+import { TicketSlaJobData } from '../queue.models'
 
 @Processor(QUEUE_NAMES.TICKET_SLA)
 export class TicketSlaProcessor extends WorkerHost {
