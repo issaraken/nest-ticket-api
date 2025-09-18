@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "99143974-ca0a-495d-9f95-e40cca0c35d0",
+		"name": "Nest Ticket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "2794310"
+	},
+	"item": [
+		{
+			"name": "Ticket",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8xQGRvdWJsZW0uY29tIiwiZGIiOiJkZW1vMSIsInNpdGUiOiIxMF8wMDAwMSIsImlhdCI6MTY0Mzc2NzE3MiwiZXhwIjoxNjQ0MzcxOTcyfQ.jfBSBKngqLx6KgQN_XnyxfrNA65rRb_Hm7oGKMxI-u8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"TEST5\",\r\n    \"description\":\r\n      \"The main dashboard is taking too long to load. Need to optimize database queries and add caching.\",\r\n    \"status\": \"OPEN\",\r\n    \"priority\": \"HIGH\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{collection-url}}/tickets"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8xQGRvdWJsZW0uY29tIiwiZGIiOiJkZW1vMSIsInNpdGUiOiIxMF8wMDAwMSIsImlhdCI6MTY0Mzc2NzE3MiwiZXhwIjoxNjQ0MzcxOTcyfQ.jfBSBKngqLx6KgQN_XnyxfrNA65rRb_Hm7oGKMxI-u8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{collection-url}}/tickets?search=TEST&page=1&pageSize=10",
+							"host": [
+								"{{collection-url}}"
+							],
+							"path": [
+								"tickets"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "IN_PROGRESS",
+									"description": "OPEN, IN_PROGRESS, RESOLVED",
+									"disabled": true
+								},
+								{
+									"key": "priority",
+									"value": "",
+									"description": "LOW, MEDIUM, HIGH",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "TEST"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": "",
+									"description": "asc | desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8xQGRvdWJsZW0uY29tIiwiZGIiOiJkZW1vMSIsInNpdGUiOiIxMF8wMDAwMSIsImlhdCI6MTY0Mzc2NzE3MiwiZXhwIjoxNjQ0MzcxOTcyfQ.jfBSBKngqLx6KgQN_XnyxfrNA65rRb_Hm7oGKMxI-u8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{collection-url}}/tickets/:id",
+							"host": [
+								"{{collection-url}}"
+							],
+							"path": [
+								"tickets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8xQGRvdWJsZW0uY29tIiwiZGIiOiJkZW1vMSIsInNpdGUiOiIxMF8wMDAwMSIsImlhdCI6MTY0Mzc2NzE3MiwiZXhwIjoxNjQ0MzcxOTcyfQ.jfBSBKngqLx6KgQN_XnyxfrNA65rRb_Hm7oGKMxI-u8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"title\": \"TEST\",\r\n    // \"description\":\r\n    //   \"The main dashboard is taking too long to load. Need to optimize database queries and add caching.\",\r\n    // \"status\": \"OPEN\",\r\n    \"priority\": \"HIGH\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{collection-url}}/tickets/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DEL",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8xQGRvdWJsZW0uY29tIiwiZGIiOiJkZW1vMSIsInNpdGUiOiIxMF8wMDAwMSIsImlhdCI6MTY0Mzc2NzE3MiwiZXhwIjoxNjQ0MzcxOTcyfQ.jfBSBKngqLx6KgQN_XnyxfrNA65rRb_Hm7oGKMxI-u8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{collection-url}}/tickets/:id",
+							"host": [
+								"{{collection-url}}"
+							],
+							"path": [
+								"tickets",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hello",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8xQGRvdWJsZW0uY29tIiwiZGIiOiJkZW1vMSIsInNpdGUiOiIxMF8wMDAwMSIsImlhdCI6MTY0Mzc2NzE3MiwiZXhwIjoxNjQ0MzcxOTcyfQ.jfBSBKngqLx6KgQN_XnyxfrNA65rRb_Hm7oGKMxI-u8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ken\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{collection-url}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Queue",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbW8xQGRvdWJsZW0uY29tIiwiZGIiOiJkZW1vMSIsInNpdGUiOiIxMF8wMDAwMSIsImlhdCI6MTY0Mzc2NzE3MiwiZXhwIjoxNjQ0MzcxOTcyfQ.jfBSBKngqLx6KgQN_XnyxfrNA65rRb_Hm7oGKMxI-u8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ken\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{collection-url}}/admin/queues/:name/stats",
+					"host": [
+						"{{collection-url}}"
+					],
+					"path": [
+						"admin",
+						"queues",
+						":name",
+						"stats"
+					],
+					"variable": [
+						{
+							"key": "name",
+							"value": "ticket-notify",
+							"description": "ticket-notify | ticket-sla"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{accessToken}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "collection-url",
+			"value": "localhost:3000"
+		},
+		{
+			"key": "accessToken",
+			"value": "555555"
+		}
+	]
+}
