@@ -18,12 +18,12 @@ export class CreateTicketDto {
   description?: string
 
   @IsEnum(TicketStatus, {
-    message: 'Status must be one of: OPEN, IN_PROGRESS, RESOLVED, CLOSED',
+    message: 'Status must be one of: OPEN, IN_PROGRESS, RESOLVED',
   })
   status: TicketStatus = TicketStatus.OPEN
 
   @IsEnum(TicketPriority, {
-    message: 'Priority must be one of: LOW, MEDIUM, HIGH, URGENT',
+    message: 'Priority must be one of: LOW, MEDIUM, HIGH',
   })
   priority: TicketPriority = TicketPriority.MEDIUM
 }

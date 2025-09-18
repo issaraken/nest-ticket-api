@@ -20,7 +20,7 @@ const mockTickets = [
     description:
       'The main dashboard is taking too long to load. Need to optimize database queries and add caching.',
     status: TicketStatus.RESOLVED,
-    priority: TicketPriority.URGENT,
+    priority: TicketPriority.HIGH,
   },
 ]
 

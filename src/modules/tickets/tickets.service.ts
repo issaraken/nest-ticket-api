@@ -150,8 +150,8 @@ export class TicketsService {
       )
 
       if (
-        updatedTicket.status === TicketStatus.RESOLVED ||
-        updatedTicket.status === TicketStatus.CLOSED
+        updatedTicket.status === TicketStatus.RESOLVED &&
+        existingTicket.status !== TicketStatus.RESOLVED
       ) {
         await this.queueService.removeSlaMonitoringJob(
           updatedTicket.id.toString(),
