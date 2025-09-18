@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npx prisma generate && npx prisma migrate dev --name init
 EXPOSE 3000
 
-CMD ["npm", "run", "start"] 
+RUN npx prisma generate && npm run build  
+CMD ["sh", "-c", "npm run db:setup && npm run start:prod"]
