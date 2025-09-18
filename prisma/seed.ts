@@ -32,7 +32,7 @@ async function main() {
     skipDuplicates: true,
   })
 
-  console.log('✅ Seed data created successfully!')
+  console.info('✅ Seed data created successfully!')
 }
 
 main()

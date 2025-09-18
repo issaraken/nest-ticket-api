@@ -5,16 +5,34 @@ import { UpdateTicketDto } from './dto/update-ticket.dto'
 import { FilterTicketsDto } from './dto/filter-ticket.dto'
 import { Prisma, Ticket } from '@prisma/client'
 import { DefaultPerPageResponseModel } from 'src/common/models/response.model'
+import { TicketQueueService } from './queue/ticket-queue.service'
+import { TicketStatus, TicketPriority } from './ticket.enums'
 
 @Injectable()
 export class TicketsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly queueService: TicketQueueService,
+  ) {}
 
   async create(dto: CreateTicketDto) {
     try {
-      return await this.prisma.ticket.create({
+      const ticket = await this.prisma.ticket.create({
         data: dto,
       })
+
+      await this.queueService.addTicketCreatedNotification(
+        ticket.id.toString(),
+        ticket.status,
+      )
+
+      await this.queueService.addSlaMonitoringJob(
+        ticket.id.toString(),
+        ticket.priority as TicketPriority,
+        ticket.createdAt,
+      )
+
+      return ticket
     } catch (error) {
       console.error(error)
       throw new BadRequestException('Failed to create ticket')
@@ -125,6 +143,21 @@ export class TicketsService {
         data: updateTicketDto,
       })
 
+      await this.queueService.addTicketUpdatedNotification(
+        updatedTicket.id.toString(),
+        updatedTicket.status,
+        existingTicket.status,
+      )
+
+      if (
+        updatedTicket.status === TicketStatus.RESOLVED ||
+        updatedTicket.status === TicketStatus.CLOSED
+      ) {
+        await this.queueService.removeSlaMonitoringJob(
+          updatedTicket.id.toString(),
+        )
+      }
+
       return updatedTicket
     } catch (error) {
       if (error instanceof BadRequestException) {
@@ -137,7 +170,6 @@ export class TicketsService {
 
   async remove(id: number): Promise<Ticket> {
     try {
-      // ตรวจสอบว่า ticket มีอยู่จริงก่อนลบ
       const existingTicket = await this.prisma.ticket.findUnique({
         where: { id },
       })
@@ -146,7 +178,6 @@ export class TicketsService {
         throw new BadRequestException(`Ticket with ID ${id} not found`)
       }
 
-      // ลบ ticket
       const deletedTicket = await this.prisma.ticket.delete({
         where: { id },
       })
