@@ -13,6 +13,7 @@ services:
       - DATABASE_URL=${DATABASE_URL}
     depends_on:
       - postgres
+      - redis
     volumes:
       - ${VOLUME_MOUNT:-./prisma:/app/prisma}
     networks:
@@ -40,8 +41,28 @@ services:
     networks:
       - ticket-network
 
+  # Redis for Queue Jobs
+  redis:
+    container_name: ticket-redis
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - ticket-network
+
 volumes:
   postgres_data:
+  redis_data:
 
 networks:
   ticket-network:
