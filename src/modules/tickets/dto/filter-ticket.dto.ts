@@ -1,6 +1,6 @@
 import { IsOptional, IsEnum, IsString, IsInt, Min, Max } from 'class-validator'
 import { Transform, Type } from 'class-transformer'
-import { SortOrder } from '../../../common/enums/common.enums'
+import { SortOrder } from '@common/enums/common.enums'
 import { TicketPriority, TicketStatus } from '../ticket.enums'
 
 export class FilterTicketsDto {
