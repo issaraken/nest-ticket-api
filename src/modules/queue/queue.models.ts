@@ -7,7 +7,7 @@ export interface TicketNotifyJobData {
 
 export interface TicketSlaJobData {
   ticketId: string
-  createdAt: Date
+  createdAt: Date | string
   priority: string
   slaMinutes: number
 }

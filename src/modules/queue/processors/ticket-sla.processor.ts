@@ -33,12 +33,16 @@ export class TicketSlaProcessor extends WorkerHost {
 
   private handleSlaCheck(
     ticketId: string,
-    createdAt: Date,
+    createdAt: Date | string,
     priority: string,
     slaMinutes: number,
   ): void {
     const now = new Date()
-    const slaDeadline = new Date(createdAt.getTime() + slaMinutes * 60 * 1000)
+    const createdAtDate =
+      createdAt instanceof Date ? createdAt : new Date(createdAt)
+    const slaDeadline = new Date(
+      createdAtDate.getTime() + slaMinutes * 60 * 1000,
+    )
     const isOverdue = now > slaDeadline
     const minutesOverdue = isOverdue
       ? Math.floor((now.getTime() - slaDeadline.getTime()) / (1000 * 60))
@@ -47,7 +51,7 @@ export class TicketSlaProcessor extends WorkerHost {
     this.logger.log(`⏰ SLA Check for Ticket ${ticketId}:`)
     this.logger.log(`   Priority: ${priority}`)
     this.logger.log(`   SLA Duration: ${slaMinutes} minutes`)
-    this.logger.log(`   Created: ${createdAt.toISOString()}`)
+    this.logger.log(`   Created: ${createdAtDate.toISOString()}`)
     this.logger.log(`   SLA Deadline: ${slaDeadline.toISOString()}`)
     this.logger.log(`   Current Time: ${now.toISOString()}`)
 

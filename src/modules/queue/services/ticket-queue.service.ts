@@ -86,7 +86,7 @@ export class TicketQueueService {
 
     const jobData: TicketSlaJobData = {
       ticketId,
-      createdAt,
+      createdAt: createdAt.toISOString(),
       priority,
       slaMinutes,
     }
